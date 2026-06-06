@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="assets/x-logo.webp">
+<title>X69420 // SIGNAL DETECTED</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================================
+     CINEMATIC LOADER
+     ============================================ -->
+<div class="loader" id="loader">
+  <canvas class="loader__particles" id="loaderParticles"></canvas>
+  <div class="loader__mars-glow"></div>
+  <div class="loader__smoke"></div>
+  <div class="loader__center">
+    <div class="loader__x">
+      <img src="assets/x-logo.webp" alt="X Logo" class="loader__x-image">        <defs>
+          <linearGradient id="xMetal" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e7e8eb"/>
+            <stop offset="35%" stop-color="#9a9ba0"/>
+            <stop offset="55%" stop-color="#f4f4f6"/>
+            <stop offset="100%" stop-color="#5a5b5f"/>
+          </linearGradient>
+        </defs>
+        <path d="M30 30 L90 100 L30 170 L70 170 L100 130 L130 170 L170 170 L110 100 L170 30 L130 30 L100 70 L70 30 Z"
+              fill="url(#xMetal)" stroke="#1a1a1a" stroke-width="1.2"/>
+      </svg>
+      <div class="loader__sparks"></div>
+    </div>
+    <div class="loader__signal">
+      <span class="loader__signal-bar"></span>
+      <span class="loader__signal-text" id="loaderText">ESTABLISHING UPLINK</span>
+      <span class="loader__signal-bar"></span>
+    </div>
+    <div class="loader__progress">
+      <div class="loader__progress-fill" id="loaderFill"></div>
+    </div>
+    <div class="loader__meta">
+      <!-- <span>TRANSMISSION ID</span> -->
+      <span id="loaderCode">X-69420-//-INIT</span>
+    </div>
+  </div>
+  <div class="loader__pulse" id="loaderPulse"></div>
+</div>
+
+<!-- ============================================
+     AMBIENT BACKGROUND LAYERS (whole page)
+     ============================================ -->
+<div class="ambient">
+  <div class="ambient__stars"></div>
+  <div class="ambient__nebula"></div>
+  <canvas class="ambient__embers" id="embersCanvas"></canvas>
+  <div class="ambient__scanlines"></div>
+  <div class="ambient__vignette"></div>
+</div>
+
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="#hero">
+      <span class="nav__brand-text">FALCON<span class="orange"> HEAVY</span></span>
+    </a>
+    <nav class="nav__links">
+      <a href="#prophecy">PROPHECY</a>
+      <!-- <a href="#archive">ARCHIVE</a> -->
+      <a href="#tokenomics">TOKENOMICS</a>
+      <a href="#gallery">GALLERY</a>
+    </nav>
+    <div class="nav__status">
+      <span class="nav__dot"></span>
+      <span class="mono">SIGNAL // LIVE</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================
+     HERO — LAYERED COMPOSITION
+     Back → front:
+       L0  stars        (deep space)
+       L1  nebula       (subtle color wash)
+       L2  mars         (panoramic terrain)
+       L3  horizon glow (orange atmospheric)
+       L4  dust         (mid-ground fog)
+       L5  girl-left    (far left)
+       L6  girl-right   (far right + cigarette smoke)
+       L7  x-glow       (orange halo behind logo)
+       L8  x-logo       (focal point)
+       L9  hud          (scan lines + corners + small text)
+     ============================================ -->
+<section class="hero" id="hero">
+
+  <!-- L0 — Stars -->
+  <div class="layer layer--stars" data-depth="0.02" id="layerStars"></div>
+
+  <!-- L1 — Nebula color wash -->
+  <div class="layer layer--nebula" data-depth="0.04"></div>
+
+  <!-- L2 — Mars terrain (bottom-aligned) -->
+  <div class="layer layer--mars" data-depth="0.10">
+    <img src="assets/mars.png" alt="" class="layer__img layer__img--mars" />
+  </div>
+
+  <!-- L3 — Horizon orange glow -->
+  <div class="layer layer--horizon" data-depth="0.06"></div>
+
+  <!-- L4 — Floating dust / mid-fog -->
+  <div class="layer layer--dust" data-depth="0.08"></div>
+
+  <!-- L5 — Left anime girl -->
+  <div class="layer layer--girl-left" data-depth="0.16">
+    <img src="assets/girl-left.png" alt="" class="layer__img layer__img--girl-left" />
+    <div class="layer__edge layer__edge--left"></div>
+  </div>
+
+  <!-- L6 — Right anime girl + cigarette smoke -->
+  <div class="layer layer--girl-right" data-depth="0.16">
+    <img src="assets/girl-right.png" alt="" class="layer__img layer__img--girl-right" />
+    <div class="layer__edge layer__edge--right"></div>
+    <div class="cig-smoke">
+      <span class="cig-smoke__p cig-smoke__p--1"></span>
+      <span class="cig-smoke__p cig-smoke__p--2"></span>
+      <span class="cig-smoke__p cig-smoke__p--3"></span>
+      <span class="cig-smoke__p cig-smoke__p--4"></span>
+      <span class="cig-smoke__p cig-smoke__p--5"></span>
+    </div>
+  </div>
+
+  <!-- L7 — Orange halo behind logo -->
+  <div class="layer layer--xglow" data-depth="0.05"></div>
+
+  <!-- L8 — Metallic X logo focal point -->
+  <div class="layer layer--xlogo" data-depth="0.22">
+    <div class="x-shell">
+      <img src="assets/x-logo.webp" alt="X 69420" class="layer__img layer__img--xlogo" />
+      <!-- <span class="x-shell__shine"></span> -->
+    </div>
+  </div>
+
+  <!-- L9 — HUD overlay -->
+  <div class="hud hud--hero">
+    <!-- corner brackets -->
+    <!-- <div class="hud__corner hud__corner--tl">
+      <span class="mono dim">// SECTOR</span><span class="mono">M-4 / RED</span>
+    </div> -->
+    <!-- <div class="hud__corner hud__corner--tr">
+      <span class="mono dim">// FREQ</span><span class="mono">69.420 MHz</span>
+    </div> -->
+    <!-- <div class="hud__corner hud__corner--bl">
+      <span class="mono dim">// COORD</span><span class="mono">14.5684°N · 175.4729°E</span>
+    </div>
+    <div class="hud__corner hud__corner--br">
+      <span class="mono dim">// STATUS</span><span class="mono orange">IGNITED</span>
+    </div> -->
+
+    <!-- scanning line -->
+    <div class="hud__scan"></div>
+
+    <!-- floating HUD chips -->
+    <div class="hud__chip hud__chip--top">
+      <span class="hud__chip-dot"></span>
+      <span class="mono">FALCON HEAVY</span>
+    </div>
+
+    <!-- <div class="hud__chip hud__chip--left">
+      <span class="mono dim">▸ CH 04</span>
+      <span class="mono">MARS FREQUENCY ACTIVE</span>
+      <div class="hud__bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div> -->
+
+    <!-- <div class="hud__chip hud__chip--right">
+      <span class="mono dim">▸ UPLINK</span>
+      <span class="mono orange">TRANSMISSION LIVE</span>
+      <span class="hud__pulse-dot"></span>
+    </div> -->
+
+    <div class="hud__chip hud__chip--bottom">
+      <span class="mono">SPACEX</span>
+    </div>
+
+    <!-- subtle crosshair on logo -->
+    <div class="hud__reticle">
+      <span class="hud__reticle-ring"></span>
+      <span class="hud__reticle-mark hud__reticle-mark--t"></span>
+      <span class="hud__reticle-mark hud__reticle-mark--r"></span>
+      <span class="hud__reticle-mark hud__reticle-mark--b"></span>
+      <span class="hud__reticle-mark hud__reticle-mark--l"></span>
+    </div>
+  </div>
+
+  <!-- hero CTAs (kept, smaller, no giant text) -->
+  <div class="hero__cta-floor">
+    <div class="hero__cta">
+      <a href="https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0xComingSoon" class="btn btn--primary">
+        <span class="btn__label">BUY $FALCON</span>
+        <span class="btn__arrow">↗</span>
+        <span class="btn__glow"></span>
+      </a>
+      <a href="https://t.me/spaceX69420coin" class="btn btn--ghost" target="_blank" rel="noopener">
+        <span class="btn__label">JOIN TELEGRAM</span>
+        <span class="btn__arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ticker -->
+  <!-- <div class="hero__ticker">
+    <div class="ticker__track">
+      <span>SIGNAL DETECTED // 69420</span><span class="dot">●</span>
+      <span>WE DON'T FOLLOW. WE LAUNCH.</span><span class="dot">●</span>
+      <span>IGNITE THE SIGNAL</span><span class="dot">●</span>
+      <span>THE PROPHECY WILL BE FULFILLED</span><span class="dot">●</span>
+      <span>TO THE MOON WAS NEVER ENOUGH</span><span class="dot">●</span>
+      <span>MARS OR DIE</span><span class="dot">●</span>
+      <span>SIGNAL DETECTED // 69420</span><span class="dot">●</span>
+      <span>WE DON'T FOLLOW. WE LAUNCH.</span><span class="dot">●</span>
+      <span>IGNITE THE SIGNAL</span><span class="dot">●</span>
+      <span>THE PROPHECY WILL BE FULFILLED</span><span class="dot">●</span>
+      <span>TO THE MOON WAS NEVER ENOUGH</span><span class="dot">●</span>
+      <span>MARS OR DIE</span><span class="dot">●</span>
+    </div>
+  </div> -->
+  </section>
+
+  <!-- ============================================
+     PROPHECY / ABOUT
+     ============================================ -->
+     <section class="prophecy" id="prophecy">
+      <div class="container">
+    
+        <div class="section-head">
+          <span class="mono dim">// CHAPTER 01</span>
+          <h2 class="section-title">
+            ABOUT <span class="orange">FALCON</span>
+          </h2>
+          <div class="section-rule"></div>
+        </div>
+    
+        <div class="prophecy__grid">
+    
+          <!-- LEFT SIDE -->
+          <div class="prophecy__lore reveal">
+    
+            <p class="prophecy__lead">
+              <!-- <span class="orange mono">SIGNAL DETECTED // 69420.</span> -->
+              On February 6, 2018, SpaceX successfully launched a heavy-lift rocket called Falcon Heavy, making it “the world’s most powerful booster since NASA’s Saturn V.”<br/>
+              For dummy payload, a Tesla Roadster belonging to SpaceX founder and Tesla co-founder Elon Musk was launched into space, too.<br/>In the driver’s seat sat a mannequin dressed in a SpaceX spacesuit.
+            </p>
+    
+            <p>
+              STARMAN has been orbiting the Sun since there.  He drives Elon's personal Tesla Roadster.
+            </p>
+    
+            <p class="prophecy__caps">
+              4.1bn+ miles travelled.<br/>
+              Eternal lore.<br/>
+              Infinite timeframe.<br/>
+            </p>
+    
+          </div>
+    
+          <!-- RIGHT SIDE -->
+          <aside class="prophecy__card reveal">
+    
+            <div class="prophecy__card-body">
+    
+              <img src="/assets/FH_8_mobile.jpg"/>
+    
+
+    
+            </div>
+    
+
+    
+          </aside>
+    
+        </div>
+
+      </div>
+    </div>
+  </section>
+<!-- ============================================
+     TRANSMISSION ARCHIVE
+     ============================================ -->
+
+<!-- ============================================
+     TOKENOMICS
+     ============================================ -->
+<section class="tokenomics" id="tokenomics">
+  <div class="container">
+    <div class="section-head">
+      <span class="mono dim">// CHAPTER 02</span>
+      <h2 class="section-title">TOKE<span class="orange">NOMICS</span></h2>
+      <p class="section-sub mono">Burned. Renounced. Untouchable. The bag is the prophecy.</p>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="tok__contract reveal">
+      <div class="tok__contract-label mono dim">// CONTRACT ADDRESS</div>
+      <div class="tok__contract-row">
+        <code class="tok__contract-addr" id="ca">0xComingSoon</code>
+        <button class="btn btn--ghost btn--small" id="copyBtn">
+          <span class="btn__label" id="copyLabel">COPY</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="tok__grid">
+      <div class="tok-card reveal">
+        <div class="tok-card__top">
+          <span class="mono dim">// 01</span>
+          <span class="tok-card__chip">SUPPLY</span>
+        </div>
+        <div class="tok-card__big">1,000,000,000</div>
+        <div class="tok-card__sub mono">FIXED · NO MINT FUNCTION</div>
+        <div class="tok-card__bar"><span style="width:100%"></span></div>
+        <div class="tok-card__glint"></div>
+      </div>
+
+      <div class="tok-card reveal">
+        <div class="tok-card__top">
+          <span class="mono dim">// 02</span>
+          <span class="tok-card__chip">TAX</span>
+        </div>
+        <div class="tok-card__big"><span class="orange">0</span> / <span class="orange">0</span></div>
+        <div class="tok-card__sub mono">BUY · SELL · NO HIDDEN FEES</div>
+        <div class="tok-card__bar"><span style="width:2%"></span></div>
+        <div class="tok-card__glint"></div>
+      </div>
+
+      <div class="tok-card reveal">
+        <div class="tok-card__top">
+          <span class="mono dim">// 03</span>
+          <span class="tok-card__chip">LIQUIDITY</span>
+        </div>
+        <div class="tok-card__big">BURNT <span class="orange">🔥</span></div>
+        <div class="tok-card__sub mono">LP LOCKED · IRREVERSIBLE</div>
+        <div class="tok-card__bar"><span style="width:100%"></span></div>
+        <div class="tok-card__glint"></div>
+      </div>
+
+      <div class="tok-card reveal">
+        <div class="tok-card__top">
+          <span class="mono dim">// 04</span>
+          <span class="tok-card__chip">OWNERSHIP</span>
+        </div>
+        <div class="tok-card__big">RENOUNCED</div>
+        <div class="tok-card__sub mono">CONTRACT FROZEN · ZERO ADMIN</div>
+        <div class="tok-card__bar"><span style="width:100%"></span></div>
+        <div class="tok-card__glint"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     GALLERY / MEDIA
+     ============================================ -->
+
+
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-head">
+      <span class="mono dim">// CHAPTER 03</span>
+      <h2 class="section-title">GALLERY</h2>
+      <p class="section-sub mono">Recovered footage. Sealed dossiers. Drag your own assets in.</p>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="gallery__grid">
+
+            <!-- FRAME 001 -->
+        <figure class="gframe gframe--tall reveal" data-label="MARS / SURFACE">
+          <img src="./uploads/13.jpg" alt="Mars Surface" class="gframe__img gframe__img--mars">
+          <figcaption>
+            <span class="mono dim">FRAME 001</span>
+            <!-- <span class="mono">MARS / SURFACE</span> -->
+          </figcaption>
+        </figure>
+    
+      <!-- FRAME 002 -->
+      <figure class="gframe reveal" data-label="ROCKET / LAUNCH">
+        <img src="./uploads/5.jpg" alt="Rocket Launch" class="gframe__img">
+        <figcaption>
+          <span class="mono dim">FRAME 002</span>
+          <!-- <span class="mono">IGNITION</span> -->
+        </figcaption>
+      </figure>
+    
+      <!-- FRAME 003 -->
+      <figure class="gframe reveal" data-label="PILOT / 01">
+        <img src="./uploads/14.jpg" alt="Pilot 01" class="gframe__img">
+        <figcaption>
+          <span class="mono dim">FRAME 003</span>
+          <!-- <span class="mono">PILOT // 01</span> -->
+        </figcaption>
+      </figure>
+    
+      <!-- FRAME 004 -->
+      <figure class="gframe gframe--wide reveal" data-label="HORIZON">
+        <img src="./uploads/17.jpg" alt="Red Horizon" class="gframe__img">
+        <figcaption>
+          <span class="mono dim">FRAME 004</span>
+          <!-- <span class="mono">RED HORIZON</span> -->
+        </figcaption>
+      </figure>
+    
+      <!-- FRAME 005 -->
+      <figure class="gframe reveal" data-label="PILOT / 02">
+        <img src="./uploads/15.jpg" alt="Pilot 02" class="gframe__img">
+        <figcaption>
+          <span class="mono dim">FRAME 005</span>
+          <span class="mono">PILOT // 02</span>
+        </figcaption>
+      </figure>
+    
+      <!-- FRAME 006 -->
+      <figure class="gframe reveal" data-label="EMBER">
+        <img src="./uploads/3.jpg" alt="Ember Field" class="gframe__img">
+        <figcaption>
+          <span class="mono dim">FRAME 006</span>
+          <!-- <span class="mono">EMBER FIELD</span> -->
+        </figcaption>
+      </figure>
+    
+          <!-- FRAME 007 -->
+    <figure class="gframe reveal" data-label="THE SIGNAL">
+      <img src="./uploads/23.jpg" alt="The Signal" class="gframe__img">
+      <figcaption>
+        <span class="mono dim">FRAME 007</span>
+        <!-- <span class="mono">THE SIGNAL</span> -->
+      </figcaption>
+    </figure>
+
+    <!-- FRAME 008 -->
+    <figure class="gframe reveal" data-label="MARS GROW OP">
+      <img src="./uploads/18.jpg" alt="Mars Grow Op" class="gframe__img">
+      <figcaption>
+        <span class="mono dim">FRAME 008</span>
+        <!-- <span class="mono">MARS GROW OP</span> -->
+      </figcaption>
+    </figure>
+
+    <!-- FRAME 009 -->
+    <figure class="gframe gframe--wide reveal" data-label="THE PROPHECY">
+      <img src="./uploads/25.jpg" alt="The Prophecy" class="gframe__img">
+      <figcaption>
+        <span class="mono dim">FRAME 009</span>
+        <!-- <span class="mono">THE PROPHECY</span> -->
+      </figcaption>
+    </figure>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============================================
+     CTA / IGNITE
+     ============================================ -->
+     <section class="ignite">
+      <div class="container ignite__inner">
+        <div class="ignite__text-block">
+          <h2 class="ignite__title">FALCON<span class="orange"> HEAVY</span>.</h2>
+          <!-- <p class="ignite__sub mono">The prophecy does not wait. Neither does the bag.</p> -->
+          <div class="hero__cta ignite__cta">
+            <a href="https://app.uniswap.org/swap?chain=mainnet&inputCurrency=NATIVE&outputCurrency=0xComingSoon" class="btn btn--primary btn--large" target="_blank" rel="noopener">
+              <span class="btn__label">BUY $FALCON</span>
+              <span class="btn__arrow">↗</span>
+              <span class="btn__glow"></span>
+            </a>
+            <a href="https://t.me/spaceX69420coin" class="btn btn--ghost btn--large" target="_blank" rel="noopener">
+              <span class="btn__label">JOIN TELEGRAM</span>
+              <span class="btn__arrow">→</span>
+            </a>
+          </div>
+        </div>
+        <div class="ignite__ship">
+          <img src="assets/ship.png" alt="SPACEX69420 Ship" class="ignite__ship-img"/>
+          <div class="ignite__ship-glow"></div>
+        </div>
+      </div>
+    </section>
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+     <footer class="footer">
+
+      <div class="container footer__inner">
+    
+        <!-- LEFT -->
+        <div class="footer__brand">
+    
+          <img 
+            src="./assets/spcx.png" 
+            alt="SPACEX69420 Logo"
+            class="footer__brand-logo"
+          >
+    
+         
+    
+        </div>
+    
+      <!-- RIGHT LINKS -->
+<div class="footer__links">
+
+  <a href="https://x.com/X69420coin" class="footer__link" target="_blank" rel="noopener">
+    <span class="mono">X / TWITTER</span>
+    <span class="arrow">↗</span>
+  </a>
+
+  <a href="https://t.me/spaceX69420coin" class="footer__link" target="_blank" rel="noopener">
+    <span class="mono">TELEGRAM</span>
+    <span class="arrow">↗</span>
+  </a>
+
+  <a href="https://dexscreener.com/ethereum/0xComingSoon" class="footer__link" target="_blank" rel="noopener">
+    <span class="mono">DEXSCREENER</span>
+    <span class="arrow">↗</span>
+  </a>
+
+  <a href="https://dextools.io/app/ether/pair-explorer/0xComingSoon" class="footer__link" target="_blank" rel="noopener">
+    <span class="mono">DEXTOOLS</span>
+    <span class="arrow">↗</span>
+  </a>
+
+</div>
+      </div>
+    
+      <div class="footer__glow"></div>
+    
+    </footer>
+<script src="script.js"></script>
+</body>
+</html>
