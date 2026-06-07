@@ -2113,6 +2113,8 @@ a.trans {
     object-position: 72% 35%;
   }
 }
+
+
 /* 12. Ignite CTA --------------------------------------------- */
 .ignite {
   text-align: center;
@@ -2331,7 +2333,8 @@ a.trans {
   .layer__img--girl-left,
   .layer__img--girl-right {
     height: 72vh;
-    height: 72svh;
+    height: 30svh;
+    width: 30vh;
     opacity: 0.9;
   }
   .x-shell {
