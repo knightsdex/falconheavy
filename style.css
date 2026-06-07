@@ -2421,9 +2421,10 @@ a.trans {
   }
   .layer__img--girl-left,
   .layer__img--girl-right {
-    height: 58vh;
-    height: 58svh;
-    opacity: 0.65;
+    bottom: 66vh;
+    height: 30svh;
+    width: 30vh;
+    opacity: 0.9;
   }
   .hud__chip--top,
   .hud__chip--bottom {
